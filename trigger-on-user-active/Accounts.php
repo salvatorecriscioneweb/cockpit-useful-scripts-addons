@@ -173,7 +173,7 @@ class Accounts extends \Cockpit\AuthController {
             if (isset($data['active'])) {
                 $_account = $this->app->storage->findOne('cockpit/accounts', ['email'  => $data['email']]);
 
-                if ($_account && $_account['active'] != $data['active']) {
+                if ($_account && $_account['active'] != $data['active'] && $data['active']) {
                     $this->app->trigger('cockpit.accounts.active', [&$data, isset($data['_id'])]);
                 }
             
