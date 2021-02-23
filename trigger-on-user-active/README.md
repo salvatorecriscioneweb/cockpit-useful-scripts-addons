@@ -2,4 +2,4 @@
 
 replace in modules/Cockpit/Controller
 
-patched to trigger events 'cockpit.accounts.active'
+patched to trigger events 'cockpit.accounts.active' and 'cockpit.accounts.create'

@@ -98,7 +98,6 @@ class Accounts extends \Cockpit\AuthController {
 
             $data['_modified'] = time();
             $isUpdate = false;
-            $isActiveUpdate = false;
 
             if (!isset($data['_id'])) {
 
@@ -175,9 +174,13 @@ class Accounts extends \Cockpit\AuthController {
                 $_account = $this->app->storage->findOne('cockpit/accounts', ['email'  => $data['email']]);
 
                 if ($_account && $_account['active'] != $data['active']) {
-                    $this->app->trigger('cockpit.accounts.active', [&$data]);
+                    $this->app->trigger('cockpit.accounts.active', [&$data, isset($data['_id'])]);
                 }
             
+            }
+
+            if ($data['_created'] == $data['_modified']) {
+                $this->app->trigger('cockpit.accounts.create', [&$data, isset($data['_id'])]);
             }
 
             $this->app->storage->save('cockpit/accounts', $data);
